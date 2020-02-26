@@ -8,7 +8,7 @@
     <div>
       <ul>
         <li v-for="task in tasks" :key="task.id" :class="{ 'is-done': task.done}">
-          <input type="checkbox" v-model="task.done" @click="task.done = !task.done" />
+          <input type="checkbox" v-model="task.done" @click="task.done = !task.done; editTask(task)" />
           <span v-if="!task.isEditing" @click="task.isEditing = !task.isEditing">{{task.text}}</span>
           <!--First: @keyup.enter="task.isEditing = !task.isEditing"  -->
           <input
@@ -77,7 +77,7 @@ export default {
         .collection("tasks")
         .doc(task.id)
         .set(task)
-    }
+    },
   }
 };
 </script>
