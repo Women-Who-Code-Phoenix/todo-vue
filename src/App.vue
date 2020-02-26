@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ToDo from './components/ToDo.vue';
+import ToDo from './components/Solution.vue';
 
 export default {
   name: 'app',
