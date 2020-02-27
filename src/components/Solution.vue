@@ -8,24 +8,21 @@
     <div>
       <ul>
         <li v-for="task in tasks" :key="task.id" :class="{ 'is-done': task.done}">
-          <input type="checkbox" v-model="task.done" @click="task.done = !task.done; editTask(task)" />
+          <input type="checkbox" v-model="task.done" @click="editTask(task)" />
           <span v-if="!task.isEditing" @click="task.isEditing = !task.isEditing">{{task.text}}</span>
           <input
+            v-else
             type="text"
             v-model="task.text"
-            v-if="task.isEditing"
             @keyup.enter="task.isEditing = !task.isEditing; editTask(task)"
           />
+          <button @click="deleteTask(task)">Delete</button>
         </li>
       </ul>
     </div>
   </div>
 </template>
-
-
-
 <script>
-import * as db from "firebase/database";
 import * as firebase from "firebase/app";
 
 export default {
@@ -75,8 +72,16 @@ export default {
       this.firestore
         .collection("tasks")
         .doc(task.id)
-        .set(task)
+        .set(task);
     },
+    deleteTask(task) {
+      this.firestore
+        .collection("tasks")
+        .doc(task.id)
+        .delete();
+      let i = this.tasks.indexOf(task);
+      this.tasks.splice(i, 1);
+    }
   }
 };
 </script>

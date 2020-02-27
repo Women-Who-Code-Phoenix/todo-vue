@@ -12,7 +12,7 @@
                     v-bind:key="task.id"
                     :class="{ 'is-done': task.done}"
                 >
-                    <input type="checkbox" v-model="task.done" @click="check"/>
+                    <input type="checkbox" v-model="task.done"/>
                     {{ task.text }}
                 </li>
             </ul>
@@ -46,9 +46,6 @@ export default {
             this.tasks.push({text: this.newTask, done: false})
             this.newTask = ''
         },
-        check(task) {
-            task.done = true
-        } 
     }
     
 }
